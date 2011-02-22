@@ -18,27 +18,27 @@ Example of use
 ===========
 
 --- test.js : a module that is going to be loaded in the remote process
-  exports.test = function () {
-    return "test";
-  }
+    exports.test = function () {
+      return "test";
+    }
 
 --- Code snippet that instanciate a remote process and load the previous test module into it:
-  IPC.newProcess(function (process) {
+    IPC.newProcess(function (process) {
     
-    // Load test module in it
-    let testModule = process.require("test");
+      // Load test module in it
+      let testModule = process.require("test");
     
-    // Call test function on this module
-    let result = Q.post(testModule, "test");
+      // Call test function on this module
+      let result = Q.post(testModule, "test");
     
-    // Check that the result of this function is valid
-    Q.when(result, function (v) {
-      test.assertEqual(v, "test");
+      // Check that the result of this function is valid
+      Q.when(result, function (v) {
+        test.assertEqual(v, "test");
       
-      test.done();
-    });
+        test.done();
+      });
     
-  });
+    });
 
 
 Interesting files
