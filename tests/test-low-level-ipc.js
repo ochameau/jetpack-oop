@@ -76,7 +76,7 @@ exports.testIPC = function (test) {
       test.done();
     }
     win.messageListener = messageListener;
-    let f = win.eval("function (data) {messageListener(data)}");
+    let f = win.eval("(function (data) {messageListener(data)})");
     
     /*
     // Sandbox equivalent doesn't work ...
