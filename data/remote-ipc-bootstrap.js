@@ -27,6 +27,9 @@ function createLoader(options) {
   // So it can't be JSON stringified :x
   let packaging = {
     __packages: options.manifest,
+    get options() {
+      return options;
+    },
     getModuleInfo: function getModuleInfo(path) {
       var i = this.__packages[path];
       var info = { dependencies: i.requires,
@@ -68,12 +71,12 @@ addMessageListener("init", function (msg) {
     let queue = Queue();
     let qcomm = loader.require("q-comm");
     let Q = loader.require("q");
-    
+
     // main object shared with chrome process
     // contains all required modules in remote process
     // (add cuddlefish module at startup)
     let modules = { cuddlefish: Q.def(loader) };
-    
+
     // Instanciate remote Q-comm Peer
     var rootObject = Q.def(modules);
     let peer = qcomm.Peer({
